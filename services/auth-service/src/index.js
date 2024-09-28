@@ -21,5 +21,5 @@ mongoose.connect(process.env.MONGODB_URI)
   });
 
 app.listen(port, () => {
-  console.log(`server is running on the port ${port}`);
+  console.log(` auth service is running on the port ${port}`);
 });

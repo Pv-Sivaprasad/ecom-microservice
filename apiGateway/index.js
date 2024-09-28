@@ -23,7 +23,7 @@ app.use("/product", createProxyMiddleware({ target: paths.product, changeOrigin:
 app.use("/order", createProxyMiddleware({ target: paths.order, changeOrigin: true }));
 
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3030;
 
 app.listen(port, () => {
     console.log(`API Gateway is running on port ${port}`);
