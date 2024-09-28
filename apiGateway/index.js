@@ -14,7 +14,7 @@ const paths = {
     auth: "http://localhost:7070",
     product: "http://localhost:4040",
     order: "http://localhost:5050",
-    
+     
 };
 
 // Proxy middleware for different services
@@ -26,5 +26,5 @@ app.use("/order", createProxyMiddleware({ target: paths.order, changeOrigin: tru
 const port = process.env.PORT || 3030;
 
 app.listen(port, () => {
-    console.log(`API Gateway is running on port ${port}`);
+    console.log(`API Gateway is running on port http://localhost:${port}`);
 });

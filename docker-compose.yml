@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  apigateway:
+    image: sivaprasadpv/ecom-apigateway
+    container_name: apigateway
+    ports:
+      - "3030:3030"
+    depends_on:
+      - auth-service
+      - product-service
+      - order-service
+    networks:
+      - ecom-network
+
+  auth-service:
+    image: sivaprasadpv/ecom-authservice
+    container_name: auth-service
+    ports:
+      - "7070:7070"
+    networks:
+      - ecom-network
+
+  product-service:
+    image: sivaprasadpv/ecom-productservice
+    container_name: product-service
+    ports:
+      - "4040:4040"
+    networks:
+      - ecom-network
+
+  order-service:
+    image: sivaprasadpv/ecom-orderservice
+    container_name: order-service
+    ports:
+      - "5050:5050"
+    networks:
+      - ecom-network
+
+networks:
+  ecom-network:
+    driver: bridge
