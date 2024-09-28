@@ -1,0 +1,67 @@
+name: CI/CD Pipeline for Microservices
+
+# Trigger the workflow on push or pull request to the main branch
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    services:
+      docker:
+        image: docker:20.10.7
+        options: --privileged
+
+    steps:
+      # Checkout the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Docker Buildx for multi-platform builds
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Log in to Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Build and push API Gateway image to Docker Hub
+      - name: Build and push API Gateway image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./apiGateway
+          push: true
+          tags: sivaprasadpv/ecom-apigateway:latest
+
+      # Build and push Auth Service image to Docker Hub
+      - name: Build and push Auth Service image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./authService
+          push: true
+          tags: sivaprasadpv/ecom-authservice:latest
+
+      # Build and push Product Service image to Docker Hub
+      - name: Build and push Product Service image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./productService
+          push: true
+          tags: sivaprasadpv/ecom-productservice:latest
+
+      # Build and push Order Service image to Docker Hub
+      - name: Build and push Order Service image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./orderService
+          push: true
+          tags: sivaprasadpv/ecom-orderservice:latest
