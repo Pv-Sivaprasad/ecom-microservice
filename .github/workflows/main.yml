@@ -3,10 +3,10 @@ name: CI/CD Pipeline for Microservices
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   build-and-push:
@@ -47,7 +47,7 @@ jobs:
         with:
           context: ./services/auth-service
           push: true
-          tags: sivaprasadpv/ecom-authservice:latest
+          tags: sivaprasadpv/ecom-authservice:latest  # Updated tag name
 
       # Build and push Product Service image to Docker Hub
       - name: Build and push Product Service image
@@ -55,7 +55,7 @@ jobs:
         with:
           context: ./services/product-service
           push: true
-          tags: sivaprasadpv/ecom-productservice:latest
+          tags: sivaprasadpv/ecom-productservice:latest  # Updated tag name
 
       # Build and push Order Service image to Docker Hub
       - name: Build and push Order Service image
