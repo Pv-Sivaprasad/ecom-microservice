@@ -1,13 +1,12 @@
 name: CI/CD Pipeline for Microservices
 
-# Trigger the workflow on push or pull request to the main branch
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   build-and-push:
@@ -46,7 +45,7 @@ jobs:
       - name: Build and push Auth Service image
         uses: docker/build-push-action@v5
         with:
-          context: ./authService
+          context: ./services/auth-service
           push: true
           tags: sivaprasadpv/ecom-authservice:latest
 
@@ -54,7 +53,7 @@ jobs:
       - name: Build and push Product Service image
         uses: docker/build-push-action@v5
         with:
-          context: ./productService
+          context: ./services/product-service
           push: true
           tags: sivaprasadpv/ecom-productservice:latest
 
@@ -62,6 +61,6 @@ jobs:
       - name: Build and push Order Service image
         uses: docker/build-push-action@v5
         with:
-          context: ./orderService
+          context: ./services/order-service
           push: true
           tags: sivaprasadpv/ecom-orderservice:latest
